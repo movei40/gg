@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Current Deals — Video Game Price Tracker</title>
+<meta name="description" content="Live video game deals across every major platform. Ranked, filtered, updated in real time.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Current Deals — Video Game Price Tracker">
+<meta property="og:description" content="Live video game deals across every major platform. Ranked, filtered, updated in real time.">
+<meta property="og:image" content="/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Current Deals — Video Game Price Tracker">
+<meta name="twitter:description" content="Live video game deals across every major platform. Ranked, filtered, updated in real time.">
+<meta name="theme-color" content="#ff4600">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --white:#ffffff;
+  --paper:#fff5ea;
+  --ink:#0d0d0c;
+  --ink-soft:#6b6258;
+  --orange:#ff4600;
+  --orange-deep:#c93700;
+  --orange-tint:#ffdac2;
+  --orange-tint-2:#fff0e2;
+  --green:#0a9d55;
+  --red:#dc2626;
+  --shadow: 6px 6px 0 var(--ink);
+  --shadow-sm: 4px 4px 0 var(--ink);
+  --shadow-hover: 8px 8px 0 var(--orange);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+}
+
+body{
+  background:var(--white);
+  color:var(--ink);
+  font-family:'Manrope','Segoe UI',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  background-image:
+    linear-gradient(var(--orange-tint-2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--orange-tint-2) 1px, transparent 1px);
+  background-size:34px 34px;
+  background-position:-1px -1px;
+}
+
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+
+/* ===== Floating Buttons ===== */
+.float-btn-wrap{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:9999;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:flex-end;
+}
+.float-btn{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 20px;
+  border-radius:999px;
+  font-family:'Manrope',sans-serif;
+  font-size:14px;
+  font-weight:700;
+  text-decoration:none;
+  color:#fff;
+  border:3px solid var(--ink);
+  box-shadow:4px 4px 0 var(--ink);
+  transition:all 0.2s ease;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.float-btn:hover{
+  transform:translate(-3px,-3px);
+  box-shadow:7px 7px 0 var(--ink);
+}
+.float-btn .icon{font-size:18px;}
+.btn-donate{background:var(--orange);color:var(--ink);}
+.btn-site{background:var(--ink);color:var(--white);}
+
+@media(max-width:640px){
+  .float-btn-wrap{bottom:14px;right:14px;gap:10px;}
+  .float-btn{padding:10px 16px;font-size:13px;}
+  .float-btn .icon{font-size:16px;}
+}
+
+/* ===== Ticker ===== */
+.ticker-wrap{
+  background:var(--ink);
+  color:var(--white);
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:600;
+  font-size:13px;
+  letter-spacing:0.08em;
+  padding:11px 0;
+  overflow:hidden;
+  white-space:nowrap;
+  border-bottom:3px solid var(--orange);
+}
+.ticker{
+  display:inline-block;
+  padding-left:100%;
+  animation:ticker 30s linear infinite;
+  text-transform:uppercase;
+}
+@keyframes ticker{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-100%);}
+}
+.ticker span{margin-right:52px;}
+.ticker .dot{color:var(--orange);}
+
+/* ===== Header ===== */
+header{
+  padding:22px 6vw;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:4px solid var(--ink);
+  background:var(--white);
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.logo-mark{
+  width:46px;height:46px;
+  border:3px solid var(--ink);
+  background:var(--orange);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink);font-weight:900;font-size:22px;
+  font-family:'Anton',sans-serif;
+  box-shadow:var(--shadow-sm);
+  transform:rotate(-4deg);
+}
+.logo-text{
+  font-family:'Anton',sans-serif;
+  font-weight:400;
+  font-size:24px;
+  letter-spacing:0.01em;
+  text-transform:uppercase;
+  line-height:1;
+}
+.logo-text small{
+  display:block;
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:600;
+  font-size:10.5px;
+  color:var(--ink-soft);
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  margin-top:5px;
+}
+.live-badge{
+  display:flex;align-items:center;gap:9px;
+  background:var(--ink);
+  border:2px solid var(--ink);
+  padding:9px 16px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  font-family:'IBM Plex Mono',monospace;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:var(--white);
+}
+.live-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--orange);
+  animation:pulse-dot 1.6s ease-in-out infinite;
+}
+@keyframes pulse-dot{
+  0%,100%{opacity:1; box-shadow:0 0 0 0 rgba(255,70,0,0.5);}
+  50%{opacity:0.5;}
+}
+
+/* ===== Hero ===== */
+.hero{
+  padding:68px 6vw 48px;
+}
+.hero-eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  font-weight:700;
+  color:var(--white);
+  background:var(--ink);
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  margin-bottom:24px;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:7px 14px;
+}
+h1.hero-title{
+  font-family:'Anton',sans-serif;
+  font-weight:400;
+  font-size:clamp(42px,8.5vw,104px);
+  line-height:0.92;
+  letter-spacing:0.005em;
+  text-transform:uppercase;
+  max-width:960px;
+}
+h1.hero-title .accent{
+  color:var(--white);
+  position:relative;
+  display:inline-block;
+  -webkit-text-stroke:2px var(--ink);
+}
+h1.hero-title .accent::after{
+  content:'';
+  position:absolute;
+  left:-6px; right:-6px; bottom:2px; top:8%;
+  background:var(--orange);
+  z-index:-1;
+  transform:skewX(-6deg);
+  border:3px solid var(--ink);
+}
+.hero-sub{
+  margin-top:26px;
+  font-size:17px;
+  font-weight:500;
+  color:var(--ink-soft);
+  max-width:560px;
+  line-height:1.6;
+}
+.hero-stats{
+  display:flex;
+  gap:0;
+  margin-top:44px;
+  flex-wrap:wrap;
+  border:3px solid var(--ink);
+  width:fit-content;
+  box-shadow:var(--shadow);
+}
+.hero-stat{
+  padding:16px 26px;
+  border-right:3px solid var(--ink);
+  background:var(--white);
+}
+.hero-stat:last-child{border-right:none;}
+.hero-stat .num{
+  font-family:'Anton',sans-serif;
+  font-weight:400;
+  font-size:36px;
+  color:var(--ink);
+  line-height:1;
+}
+.hero-stat .num.orange{color:var(--orange);}
+.hero-stat .label{
+  font-size:11px;
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:600;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  margin-top:8px;
+}
+
+/* ===== Controls (NOT sticky) ===== */
+.controls{
+  padding:22px 6vw;
+  background:var(--white);
+  z-index:40;
+  border-top:3px solid var(--ink);
+  border-bottom:3px solid var(--ink);
+}
+.search-row{
+  display:flex;
+  gap:14px;
+  margin-bottom:18px;
+}
+.search-box{
+  flex:1;
+  position:relative;
+}
+.search-box input{
+  width:100%;
+  padding:14px 18px 14px 44px;
+  border:2.5px solid var(--ink);
+  font-size:14px;
+  font-weight:600;
+  font-family:inherit;
+  background:var(--paper);
+  transition:box-shadow 0.15s ease, transform 0.15s ease;
+}
+.search-box input:focus{
+  outline:none;
+  background:var(--white);
+  box-shadow:4px 4px 0 var(--orange);
+  transform:translate(-2px,-2px);
+}
+.search-box .search-icon{
+  position:absolute;
+  left:15px; top:50%;
+  transform:translateY(-50%);
+  color:var(--ink);
+  pointer-events:none;
+}
+.search-box .clear-btn{
+  position:absolute;
+  right:12px; top:50%;
+  transform:translateY(-50%);
+  background:var(--ink);
+  color:var(--white);
+  width:22px;height:22px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.2s ease;
+}
+.search-box .clear-btn.visible{
+  opacity:1;
+  pointer-events:auto;
+}
+.min-discount{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0 16px;
+  border:2.5px solid var(--ink);
+  background:var(--paper);
+  font-size:12.5px;
+  font-weight:700;
+  font-family:'IBM Plex Mono',monospace;
+  color:var(--ink);
+  white-space:nowrap;
+}
+.min-discount input[type=range]{accent-color:var(--orange);}
+
+.filter-row{
+  display:flex;
+  gap:26px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.filter-group{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.filter-label{
+  font-size:11px;
+  font-weight:800;
+  font-family:'IBM Plex Mono',monospace;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color:var(--ink);
+  margin-right:2px;
+}
+.chip{
+  padding:8px 16px;
+  border-radius:999px;
+  border:2px solid var(--ink);
+  font-size:12.5px;
+  font-weight:700;
+  color:var(--ink);
+  background:var(--white);
+  transition:all 0.15s ease;
+}
+.chip:hover{background:var(--orange-tint-2); transform:translateY(-2px);}
+.chip.active{
+  background:var(--ink);
+  border-color:var(--ink);
+  color:var(--white);
+  box-shadow:3px 3px 0 var(--orange);
+}
+.chip.active.store-chip{
+  background:var(--orange);
+  border-color:var(--ink);
+  color:var(--ink);
+  box-shadow:3px 3px 0 var(--ink);
+}
+
+/* ===== Sections ===== */
+.section{padding:60px 6vw;}
+.section-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  margin-bottom:30px;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.section-title{
+  font-family:'Anton',sans-serif;
+  font-weight:400;
+  font-size:32px;
+  letter-spacing:0.01em;
+  text-transform:uppercase;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.section-title .flame{color:var(--orange);}
+.section-note{
+  font-size:12.5px;
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:600;
+  color:var(--ink-soft);
+}
+.last-updated{
+  font-size:11px;
+  font-family:'IBM Plex Mono',monospace;
+  color:var(--ink-soft);
+  margin-top:8px;
+}
+
+/* ===== Top 10 rail ===== */
+.top10-rail{
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+  padding:4px 4px 20px;
+  scroll-snap-type:x mandatory;
+}
+.top10-rail::-webkit-scrollbar{height:8px;}
+.top10-rail::-webkit-scrollbar-thumb{background:var(--ink); border-radius:0;}
+
+.top-card{
+  flex:0 0 250px;
+  scroll-snap-align:start;
+  background:var(--white);
+  border:3px solid var(--ink);
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(16px);
+  animation:card-in 0.5s ease forwards;
+  box-shadow:var(--shadow-sm);
+  transition:transform 0.2s ease, box-shadow 0.2s ease;
+  cursor:pointer;
+}
+.top-card:hover{
+  transform:translate(-3px,-3px);
+  box-shadow:var(--shadow-hover);
+}
+.top-rank{
+  position:absolute;
+  top:-18px; right:-4px;
+  font-family:'Anton',sans-serif;
+  font-weight:400;
+  font-size:80px;
+  color:transparent;
+  -webkit-text-stroke:2px var(--orange-tint);
+  line-height:1;
+  z-index:0;
+  user-select:none;
+}
+.top-card-inner{position:relative; z-index:1;}
+.top-card .game-title{
+  margin-top:6px;
+  font-family:'Manrope',sans-serif;
+  font-weight:800;
+  font-size:14.5px;
+  margin-bottom:10px;
+  line-height:1.28;
+  min-height:38px;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.price-row{display:flex;align-items:baseline;gap:9px;}
+.price-new{
+  font-family:'Anton',sans-serif;
+  font-weight:400;
+  font-size:22px;
+  color:var(--green);
+}
+.price-old{
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--ink-soft);
+  text-decoration:line-through;
+}
+.discount-badge{
+  display:inline-block;
+  margin-top:11px;
+  background:var(--orange);
+  color:var(--ink);
+  font-weight:800;
+  font-size:12px;
+  font-family:'IBM Plex Mono',monospace;
+  padding:4px 10px;
+  border:2px solid var(--ink);
+  transform:rotate(-2deg);
+}
+
+/* ===== Grid ===== */
+.deals-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:22px;
+}
+.deal-card{
+  background:var(--white);
+  border:3px solid var(--ink);
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(14px);
+  animation:card-in 0.45s ease forwards;
+  box-shadow:var(--shadow-sm);
+  transition:transform 0.18s ease, box-shadow 0.18s ease;
+  position:relative;
+}
+.deal-card:hover{
+  transform:translate(-3px,-3px);
+  box-shadow:var(--shadow-hover);
+}
+.card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:12px 14px;
+  border-bottom:3px solid var(--ink);
+  background:var(--orange-tint-2);
+}
+.store-tag{
+  background:var(--ink);
+  color:var(--white);
+  font-size:10.5px;
+  font-weight:700;
+  font-family:'IBM Plex Mono',monospace;
+  text-transform:uppercase;
+  padding:5px 9px;
+}
+.save-tag{
+  background:var(--orange);
+  color:var(--ink);
+  font-size:12px;
+  font-weight:800;
+  font-family:'IBM Plex Mono',monospace;
+  padding:5px 9px;
+  border:2px solid var(--ink);
+  transform:rotate(3deg);
+}
+.card-actions{
+  display:flex;
+  gap:6px;
+}
+.card-action-btn{
+  width:32px;height:32px;
+  background:var(--white);
+  border:2px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;
+  transition:all 0.15s ease;
+}
+.card-action-btn:hover{background:var(--orange); transform:scale(1.1);}
+.card-action-btn.favorited{background:var(--orange);}
+
+.deal-body{padding:16px;}
+.deal-body .game-title{
+  font-family:'Manrope',sans-serif;
+  font-weight:800;
+  font-size:14.5px;
+  margin-bottom:12px;
+  line-height:1.3;
+  min-height:38px;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.deal-meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.rating{
+  font-size:11px;
+  font-weight:600;
+  color:var(--ink-soft);
+  font-family:'IBM Plex Mono',monospace;
+}
+.rating.good{color:var(--green);}
+.go-btn{
+  margin-top:14px;
+  width:100%;
+  padding:12px;
+  background:var(--ink);
+  color:var(--white);
+  font-weight:700;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12.5px;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+  text-align:center;
+  transition:background 0.18s ease;
+  display:block;
+}
+.deal-card:hover .go-btn{background:var(--orange); color:var(--ink);}
+
+@keyframes card-in{
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* ===== Loading / empty ===== */
+.skeleton{
+  background:linear-gradient(90deg,var(--paper) 25%, var(--orange-tint) 37%, var(--paper) 63%);
+  background-size:400% 100%;
+  animation:shimmer 1.4s ease infinite;
+  border:3px solid var(--ink);
+  height:280px;
+}
+@keyframes shimmer{
+  0%{background-position:100% 50%;}
+  100%{background-position:0 50%;}
+}
+.empty-state{
+  text-align:center;
+  padding:60px 20px;
+  color:var(--ink-soft);
+  font-weight:600;
+}
+.empty-state .big{font-size:40px; margin-bottom:10px;}
+
+.load-more-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:40px;
+}
+.load-more{
+  padding:14px 34px;
+  border:3px solid var(--ink);
+  border-radius:999px;
+  font-weight:800;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12.5px;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+  background:var(--white);
+  box-shadow:var(--shadow-sm);
+  transition:all 0.18s ease;
+}
+.load-more:hover{background:var(--ink); color:var(--white); transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--orange);}
+
+/* ===== Toast ===== */
+.toast-container{
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  z-index:1000;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  pointer-events:none;
+}
+.toast{
+  background:var(--ink);
+  color:var(--white);
+  padding:14px 22px;
+  border:3px solid var(--ink);
+  box-shadow:4px 4px 0 var(--orange);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12.5px;
+  font-weight:700;
+  transform:translateX(120%);
+  animation:toast-in 0.4s ease forwards, toast-out 0.4s ease 2.6s forwards;
+  pointer-events:auto;
+  max-width:320px;
+}
+.toast.error{box-shadow:4px 4px 0 var(--red);}
+@keyframes toast-in{to{transform:translateX(0);}}
+@keyframes toast-out{to{transform:translateX(120%); opacity:0;}}
+
+/* ===== Footer ===== */
+footer{
+  padding:44px 6vw 54px;
+  border-top:4px solid var(--ink);
+  background:var(--ink);
+  color:var(--white);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:16px;
+}
+footer .foot-brand{
+  font-family:'Anton',sans-serif;
+  font-weight:400;
+  font-size:18px;
+  text-transform:uppercase;
+}
+footer .foot-note{
+  font-size:12px;
+  font-weight:500;
+  color:#b8b0a4;
+  max-width:520px;
+  line-height:1.6;
+  margin-top:6px;
+}
+
+@media(max-width:640px){
+  .hero{padding-top:48px;}
+  .section{padding:44px 5vw;}
+  .controls{padding:18px 5vw;}
+  header{padding:20px 5vw;}
+  .top-card{flex-basis:200px;}
+  .hero-stat{padding:14px 18px;}
+  .search-row{flex-direction:column;}
+  .float-btn-wrap{bottom:14px;right:14px;gap:10px;}
+  .float-btn{padding:10px 16px;font-size:13px;}
+  .float-btn .icon{font-size:16px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Floating Buttons -->
+<div class="float-btn-wrap">
+  <a href="https://ko-fi.com/yalaworld/goal?g=4" target="_blank" class="float-btn btn-donate" rel="noopener">
+    <span class="icon">☕</span>
+    <span>Support me</span>
+  </a>
+  <a href="https://moviesandvideogames24.blogspot.com/?m=1" target="_blank" class="float-btn btn-site" rel="noopener">
+    <span class="icon">🌐</span>
+    <span>My Website</span>
+  </a>
+</div>
+
+<div class="ticker-wrap">
+  <div class="ticker" id="tickerText">
+    <span>Loading live deals<span class="dot">…</span></span>
+  </div>
+</div>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">%</div>
+    <div class="logo-text">Current Deals<small>Live game price tracker</small></div>
+  </div>
+  <div class="live-badge"><span class="live-dot"></span> Live prices</div>
+</header>
+
+<section class="hero">
+  <div class="hero-eyebrow">Updated every time you load this page</div>
+  <h1 class="hero-title">Every discount, <span class="accent">one screen.</span></h1>
+  <p class="hero-sub">Current Deals pulls real-time prices from every major PC storefront — Steam, Epic, GOG, Humble and more — and ranks them so you never overpay for a game again.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num orange" id="statCount">–</div><div class="label">Active deals</div></div>
+    <div class="hero-stat"><div class="num" id="statStores">–</div><div class="label">Stores tracked</div></div>
+    <div class="hero-stat"><div class="num orange" id="statBest">–</div><div class="label">Best discount</div></div>
+  </div>
+</section>
+
+<div class="controls">
+  <div class="search-row">
+    <div class="search-box">
+      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Search a game title…" autocomplete="off">
+      <button class="clear-btn" id="clearSearch" aria-label="Clear search">×</button>
+    </div>
+    <div class="min-discount">
+      <span id="discountLabel">Min. discount: 0%</span>
+      <input type="range" id="discountSlider" min="0" max="90" value="0" step="10">
+    </div>
+  </div>
+  <div class="filter-row">
+    <div class="filter-group">
+      <span class="filter-label">Sort</span>
+      <button class="chip active" data-sort="Deal Rating">Best rated</button>
+      <button class="chip" data-sort="Savings">Biggest savings</button>
+      <button class="chip" data-sort="Price">Lowest price</button>
+      <button class="chip" data-sort="Recent">Newest</button>
+    </div>
+    <div class="filter-group" id="storeFilters">
+      <span class="filter-label">Platform</span>
+      <button class="chip store-chip active" data-store="">All</button>
+    </div>
+  </div>
+  <div class="last-updated" id="lastUpdated"></div>
+</div>
+
+<section class="section">
+  <div class="section-head">
+    <div class="section-title"><span class="flame">🔥</span> Top 10 best prices right now</div>
+    <div class="section-note">Ranked by deal quality across all stores</div>
+  </div>
+  <div class="top10-rail" id="top10Rail">
+    <div class="skeleton" style="flex:0 0 250px"></div>
+    <div class="skeleton" style="flex:0 0 250px"></div>
+    <div class="skeleton" style="flex:0 0 250px"></div>
+    <div class="skeleton" style="flex:0 0 250px"></div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="section-head">
+    <div class="section-title">All deals</div>
+    <div class="section-note" id="resultsNote">Loading…</div>
+  </div>
+  <div class="deals-grid" id="dealsGrid">
+    <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+  </div>
+  <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
+    <button class="load-more" id="loadMoreBtn">Load more deals</button>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="foot-brand">Current Deals</div>
+    <div class="foot-note">Prices are pulled live from public storefront data and may shift by the time you check out. Always confirm the final price on the store page.</div>
+  </div>
+</footer>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+const API = "https://www.cheapshark.com/api/1.0";
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+const apiCache = new Map(); // url -> { data, ts }
+
+// Cached fetch wrapper: serves fresh data from network, falls back to a
+// stale cached copy if the request fails (so the site still shows *something*
+// instead of a full failure when the API is slow/down).
+async function cachedFetchJson(url){
+  const cached = apiCache.get(url);
+  const isFresh = cached && (Date.now() - cached.ts < CACHE_TTL_MS);
+  if(isFresh) return cached.data;
+
+  try{
+    const res = await fetch(url);
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    apiCache.set(url, { data, ts: Date.now() });
+    return data;
+  }catch(e){
+    if(cached) return cached.data; // stale-while-error fallback
+    throw e;
+  }
+}
+
+let allStores = {};
+let currentSort = "Deal Rating";
+let currentStore = "";
+let currentPage = 0;
+let currentDeals = [];
+let searchTerm = "";
+let minDiscount = 0;
+let favorites = new Set();
+let isLoading = false;
+
+const storeFiltersEl = document.getElementById('storeFilters');
+const dealsGrid = document.getElementById('dealsGrid');
+const top10Rail = document.getElementById('top10Rail');
+const resultsNote = document.getElementById('resultsNote');
+const tickerText = document.getElementById('tickerText');
+const loadMoreWrap = document.getElementById('loadMoreWrap');
+const loadMoreBtn = document.getElementById('loadMoreBtn');
+const toastContainer = document.getElementById('toastContainer');
+const clearSearchBtn = document.getElementById('clearSearch');
+const searchInput = document.getElementById('searchInput');
+const lastUpdatedEl = document.getElementById('lastUpdated');
+
+function money(v){
+  const n = parseFloat(v);
+  return isNaN(n) ? '—' : '$' + n.toFixed(2);
+}
+
+function storeName(id){
+  return allStores[id] ? allStores[id].storeName : 'Store';
+}
+
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// dealID comes from a trusted API but is still escaped before going into a URL/attribute.
+function safeRedirectUrl(dealID){
+  return 'https://www.cheapshark.com/redirect?dealID=' + encodeURIComponent(dealID);
+}
+
+function showToast(message, type='success'){
+  const toast = document.createElement('div');
+  toast.className = 'toast' + (type==='error'?' error':'');
+  toast.textContent = message;
+  toastContainer.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+function formatDate(date){
+  return new Intl.DateTimeFormat('en-US', {
+    year:'numeric', month:'short', day:'numeric',
+    hour:'2-digit', minute:'2-digit'
+  }).format(date);
+}
+
+function loadPrefs(){
+  try{
+    const saved = localStorage.getItem('cd_prefs');
+    if(saved){
+      const p = JSON.parse(saved);
+      if(p.sort) currentSort = p.sort;
+      if(p.store !== undefined) currentStore = p.store;
+      if(p.minDiscount !== undefined) minDiscount = p.minDiscount;
+      if(p.favorites) favorites = new Set(p.favorites);
+    }
+  }catch(e){}
+}
+
+function savePrefs(){
+  try{
+    localStorage.setItem('cd_prefs', JSON.stringify({
+      sort: currentSort,
+      store: currentStore,
+      minDiscount: minDiscount,
+      favorites: Array.from(favorites)
+    }));
+  }catch(e){}
+}
+
+function toggleFavorite(dealID, title, event){
+  if(event) event.stopPropagation();
+  if(favorites.has(dealID)){
+    favorites.delete(dealID);
+    showToast('Removed from saved');
+  } else {
+    favorites.add(dealID);
+    showToast('Saved: ' + title);
+  }
+  savePrefs();
+  document.querySelectorAll(`[data-fav="${dealID}"]`).forEach(btn => {
+    btn.classList.toggle('favorited', favorites.has(dealID));
+    btn.innerHTML = favorites.has(dealID) ? '❤️' : '🤍';
+  });
+}
+
+async function loadStores(){
+  try{
+    const data = await cachedFetchJson(`${API}/stores`);
+    const active = data.filter(s => s.isActive === 1);
+    active.slice(0,8).forEach(s => {
+      allStores[s.storeID] = s;
+      const btn = document.createElement('button');
+      btn.className = 'chip store-chip';
+      btn.dataset.store = s.storeID;
+      btn.textContent = s.storeName;
+      storeFiltersEl.appendChild(btn);
+    });
+    document.getElementById('statStores').textContent = active.length;
+
+    if(currentStore){
+      document.querySelectorAll('.store-chip').forEach(c => c.classList.remove('active'));
+      const btn = document.querySelector(`[data-store="${currentStore}"]`);
+      if(btn) btn.classList.add('active');
+    }
+    document.querySelectorAll('[data-sort]').forEach(b => {
+      b.classList.toggle('active', b.dataset.sort === currentSort);
+    });
+    document.getElementById('discountSlider').value = minDiscount;
+    document.getElementById('discountLabel').textContent = `Min. discount: ${minDiscount}%`;
+
+    document.querySelectorAll('.store-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.store-chip').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        currentStore = btn.dataset.store;
+        currentPage = 0;
+        savePrefs();
+        loadDeals();
+      });
+    });
+  }catch(e){
+    showToast('Failed to load stores', 'error');
+  }
+}
+
+async function loadTop10(){
+  try{
+    const data = await cachedFetchJson(`${API}/deals?sortBy=Deal Rating&onSale=true&pageSize=10`);
+    top10Rail.innerHTML = '';
+    data.forEach((d,i) => {
+      const el = document.createElement('div');
+      el.className = 'top-card';
+      el.style.animationDelay = (i*0.05)+'s';
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('role', 'button');
+      el.setAttribute('aria-label', `${d.title}, ${Math.round(d.savings)}% off`);
+      el.innerHTML = `
+        <div class="top-rank">${i+1}</div>
+        <div class="top-card-inner">
+          <div class="game-title">${escapeHtml(d.title)}</div>
+          <div class="price-row">
+            <span class="price-new">${money(d.salePrice)}</span>
+            <span class="price-old">${money(d.normalPrice)}</span>
+          </div>
+          <span class="discount-badge">-${Math.round(d.savings)}%</span>
+        </div>`;
+
+      const openDeal = () => window.open(safeRedirectUrl(d.dealID), '_blank');
+      el.addEventListener('click', openDeal);
+      el.addEventListener('keydown', (e) => { if(e.key==='Enter'||e.key===' ') openDeal(); });
+      top10Rail.appendChild(el);
+    });
+
+    if(data[0]) document.getElementById('statBest').textContent = '-'+Math.round(data[0].savings)+'%';
+
+    tickerText.innerHTML = data.map(d => 
+      `<span>${escapeHtml(d.title)} <span class="dot">●</span> ${money(d.salePrice)} <span class="dot">(-${Math.round(d.savings)}%)</span></span>`
+    ).join('');
+  }catch(e){
+    top10Rail.innerHTML = '<div class="empty-state">Could not load top deals right now.</div>';
+    showToast('Failed to load featured deals', 'error');
+  }
+}
+
+async function loadDeals(append=false){
+  if(isLoading) return;
+  isLoading = true;
+
+  if(!append){
+    dealsGrid.innerHTML = '<div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>';
+    resultsNote.textContent = 'Loading…';
+  }
+
+  try{
+    let url = `${API}/deals?sortBy=${encodeURIComponent(currentSort)}&pageNumber=${currentPage}&pageSize=24&onSale=true`;
+    if(currentStore) url += `&storeID=${currentStore}`;
+    if(minDiscount > 0) url += `&lowerPrice=0`;
+    if(searchTerm) url += `&title=${encodeURIComponent(searchTerm)}`;
+
+    const data = await cachedFetchJson(url);
+
+    let filtered = data.filter(d => Math.round(d.savings) >= minDiscount);
+
+    if(!append){
+      currentDeals = filtered;
+      dealsGrid.innerHTML = '';
+    } else {
+      currentDeals = currentDeals.concat(filtered);
+    }
+
+    if(currentDeals.length === 0){
+      dealsGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="big">🎮</div>No deals match these filters yet.<br>Try lowering the minimum discount.</div>`;
+      loadMoreWrap.style.display = 'none';
+      resultsNote.textContent = '0 results';
+      isLoading = false;
+      return;
+    }
+
+    filtered.forEach((d,i) => {
+      const card = document.createElement('div');
+      card.className = 'deal-card';
+      card.style.animationDelay = (i*0.03)+'s';
+      const rating = d.steamRatingText ? `${d.steamRatingText} · ${d.steamRatingPercent}%` : (d.metacriticScore > 0 ? `Metacritic ${d.metacriticScore}` : 'Unrated');
+      const ratingGood = (d.steamRatingPercent && d.steamRatingPercent >= 70) ? 'good' : '';
+      const isFav = favorites.has(d.dealID);
+
+      card.innerHTML = `
+        <div class="card-top">
+          <span class="store-tag">${storeName(d.storeID)}</span>
+          <span class="save-tag">-${Math.round(d.savings)}%</span>
+          <div class="card-actions">
+            <button class="card-action-btn" data-fav="${d.dealID}" title="Save" aria-label="Save to favorites">${isFav?'❤️':'🤍'}</button>
+          </div>
+        </div>
+        <div class="deal-body">
+          <div class="game-title">${escapeHtml(d.title)}</div>
+          <div class="price-row">
+            <span class="price-new">${money(d.salePrice)}</span>
+            <span class="price-old">${money(d.normalPrice)}</span>
+          </div>
+          <div class="deal-meta" style="margin-top:8px;">
+            <span class="rating ${ratingGood}">${rating}</span>
+          </div>
+          <a href="${safeRedirectUrl(d.dealID)}" target="_blank" rel="noopener" class="go-btn">Official store →</a>
+        </div>`;
+
+      const favBtn = card.querySelector('[data-fav]');
+      if(favBtn){
+        favBtn.classList.toggle('favorited', isFav);
+        favBtn.addEventListener('click', (e) => toggleFavorite(d.dealID, d.title, e));
+      }
+
+      dealsGrid.appendChild(card);
+    });
+
+    resultsNote.textContent = `${currentDeals.length} deals shown`;
+    document.getElementById('statCount').textContent = currentDeals.length + '+';
+    loadMoreWrap.style.display = (filtered.length >= 24) ? 'flex' : 'none';
+
+    lastUpdatedEl.textContent = 'Last updated: ' + formatDate(new Date());
+
+  }catch(e){
+    console.error(e);
+    if(!append){
+      dealsGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">Something went wrong loading deals. Please refresh.</div>`;
+    }
+    showToast('Server connection error', 'error');
+  }finally{
+    isLoading = false;
+  }
+}
+
+/* ===== Event Listeners ===== */
+document.querySelectorAll('[data-sort]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-sort]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentSort = btn.dataset.sort;
+    currentPage = 0;
+    savePrefs();
+    loadDeals();
+  });
+});
+
+const discountSlider = document.getElementById('discountSlider');
+discountSlider.addEventListener('input', () => {
+  minDiscount = parseInt(discountSlider.value);
+  document.getElementById('discountLabel').textContent = `Min. discount: ${minDiscount}%`;
+});
+discountSlider.addEventListener('change', () => {
+  currentPage = 0;
+  savePrefs();
+  loadDeals();
+});
+
+let searchDebounce;
+searchInput.addEventListener('input', (e) => {
+  clearTimeout(searchDebounce);
+  const val = e.target.value.trim();
+  clearSearchBtn.classList.toggle('visible', val.length > 0);
+  searchDebounce = setTimeout(() => {
+    searchTerm = val;
+    currentPage = 0;
+    loadDeals();
+  }, 450);
+});
+
+clearSearchBtn.addEventListener('click', () => {
+  searchInput.value = '';
+  searchTerm = '';
+  clearSearchBtn.classList.remove('visible');
+  currentPage = 0;
+  loadDeals();
+  searchInput.focus();
+});
+
+loadMoreBtn.addEventListener('click', () => {
+  currentPage++;
+  loadDeals(true);
+});
+
+/* ===== Init ===== */
+(async function init(){
+  loadPrefs();
+  await loadStores();
+  await loadTop10();
+  await loadDeals();
+})();
+</script>
+
+</body>
+</html>
